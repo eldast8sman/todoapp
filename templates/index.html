@@ -13,6 +13,20 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            width: 200px;
+        }
+        li {
+            clear: both;
+        }
+        li button {
+            -webkit-appearance: none;
+            border: none;
+            outline: none;
+            color: red;
+            float: right;
+            background: none;
+            cursor: pointer;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -24,10 +38,34 @@
     </form>
     <ul id="todos">
         {% for d in data %}
-        <li><input type="checkbox" data-id="{{ d.id }}" class="check-completed" {% if d.completed %} checked {% endif %}>{{ d.description }}</li>
+        <li>
+            <input type="checkbox" data-id="{{ d.id }}" class="check-completed" {% if d.completed %} checked {% endif %}>
+            {{ d.description }}
+            <button data-id="{{ d.id }}" class="delete-button">&cross;</button>
+        </li>
         {% endfor %}
     </ul>
     <script>
+        const del_buttons = document.querySelectorAll('.delete-button');
+        for(let i=0; i < del_buttons.length; i++){
+            const del_button  = del_buttons[i];
+            del_button.onclick = function(e) {
+                const todoId = e.target.dataset['id'];
+                fetch('/todos/'+todoId+'/delete', {
+                    method: 'GET',
+                    body: '',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(function(){
+                    document.getElementById('error').className='hidden';
+                })
+                .catch(function(){
+                    document.getElementById('error').className='';
+                })
+            }
+        }
         const checkboxes = document.querySelectorAll('.check-completed');
         for(let i = 0; i < checkboxes.length; i++){
             const checkbox = checkboxes[i];
