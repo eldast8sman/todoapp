@@ -51,8 +51,8 @@
             const del_button  = del_buttons[i];
             del_button.onclick = function(e) {
                 const todoId = e.target.dataset['id'];
-                fetch('/todos/'+todoId+'/delete', {
-                    method: 'GET'
+                fetch('/todos/'+todoId, {
+                    method: 'DELETE'
                 })
                 .then(function(response){
                     document.getElementById('error').className='hidden';
