@@ -52,16 +52,13 @@
             del_button.onclick = function(e) {
                 const todoId = e.target.dataset['id'];
                 fetch('/todos/'+todoId+'/delete', {
-                    method: 'GET',
-                    body: '',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    method: 'GET'
                 })
-                .then(function(){
+                .then(function(response){
                     document.getElementById('error').className='hidden';
+                    window.location = 'http://127.0.0.1:5000'
                 })
-                .catch(function(){
+                .catch(function(response){
                     document.getElementById('error').className='';
                 })
             }
