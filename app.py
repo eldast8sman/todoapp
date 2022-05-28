@@ -34,10 +34,12 @@ def create_todo():
     body = {}
     try:
         description = request.get_json()['description']
-        todo = Todo(description=description)
+        todo = Todo(description=description, completed=False)
         db.session.add(todo)
         db.session.commit()
+        body['id'] = todo.id
         body['description'] = todo.description
+        body['completed'] = todo.completed
     except:
         db.session.rollback()
         error = True
