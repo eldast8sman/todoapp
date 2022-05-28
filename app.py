@@ -19,7 +19,7 @@ class Todo(db.Model):
     def __repr__(self):
         return f'<Todo {self.id} {self.description}>'
 
-class TodoList(db.Modek):
+class TodoList(db.Model):
     __tablename__ = "todolists"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
