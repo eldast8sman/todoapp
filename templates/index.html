@@ -42,11 +42,20 @@
 </head>
 
 <body>
+    <h3>A Sample Version of TODO App</h3>
     <div class="lists-wrapper">
+        <h4>TODO LISTS</h4>
+        <form action="/lists/create" method="POST" id="list-form">
+            <label for="todolist-input">Create List:</label>
+            <input type="text" name="todolist" id="todolist-input" placeholder="A new List" data-id="{{ active_list.id0 }}" />
+            <button type="submit" name="submit">Create List</button>
+        </form>
         <ul id="lists">
             {% for list in lists %}
             <li>
+                <input type="checkbox" data-id="{{list.id}}" class="list-check-completed" />
                 <a href="/lists/{{list.id}}">{{list.name}}</a>
+                <button class="delete-list" data-id="{{ list.id }}">&cross;</button>
             </li>
             {% endfor %}
         </ul>
@@ -70,6 +79,17 @@
     </div>
 
     <script>
+        let deleteBtns;
+        const listCheckboxes = document.querySelectorAll('.list-check-completed');
+        for(let i=0; i<listCheckboxes.length; i++){
+            const checkbox = listCheckboxes[i];
+
+            checkbox.onchange = function(e){
+                
+            }
+        }
+        
+        
         const del_buttons = document.querySelectorAll('.delete-button');
         for (let i = 0; i < del_buttons.length; i++) {
             const del_button = del_buttons[i];
